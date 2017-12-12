@@ -7,7 +7,13 @@ package com.bgnt.em;
  */
 public enum BaseResultCode {
 
-    OK("000000","成功");
+    OK("000000","成功"),
+    PARAMETER_ERROR("100001", "参数传递异常")
+
+
+
+
+    ;
 
     private String value;
     private String detail;

@@ -1,6 +1,7 @@
 package com.bgnt.sys.controller;
 
 import com.bgnt.api.request.SaveSysUserRequest;
+import com.bgnt.em.BaseResultCode;
 import com.bgnt.spring.exception.BusinessException;
 import com.bgnt.spring.response.BaseResponse;
 import com.bgnt.sys.service.atom.ISysUserSV;
@@ -31,15 +32,14 @@ public class SysUserController {
 
     @PostMapping("/api/v0.0.1/saveUser")
     public BaseResponse saveUser(@Validated @RequestBody SaveSysUserRequest sysUser, BindingResult result) {
-        LOGGER.info("===保存系统用户===");
         List<ObjectError> list = result.getAllErrors();
         if (!CollectionUtils.isEmpty(list)) {
             StringBuffer stringBuffer = new StringBuffer();
             list.forEach(item ->
-                    stringBuffer.append(item.getDefaultMessage() + ",")
+                    stringBuffer.append(item.getDefaultMessage()).append(",")
             );
             stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
-            throw new BusinessException("100010", stringBuffer.toString());
+            throw new BusinessException(BaseResultCode.PARAMETER_ERROR.getValue(), stringBuffer.toString());
         }
         sysUserSV.insert(sysUser.getSysUser());
         return new BaseResponse();

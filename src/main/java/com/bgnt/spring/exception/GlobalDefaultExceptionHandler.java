@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler extends Exception {
-    private static Logger logger = Logger.getLogger(GlobalDefaultExceptionHandler.class);
+    private static Logger LOGGER = Logger.getLogger(GlobalDefaultExceptionHandler.class);
     @ExceptionHandler({ BusinessException.class })
     public ResponseEntity<ErrorResponse> exception(BusinessException e) {
         ErrorResponse resp = new ErrorResponse(e.getResultCode(),
@@ -24,7 +24,7 @@ public class GlobalDefaultExceptionHandler extends Exception {
 
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<ErrorResponse> exception(Exception e) {
-        logger.error("<========《系统异常》请联系管理员处理此问题========>", e);
+        LOGGER.error("<========《系统异常》请联系管理员处理此问题========>", e);
         ErrorResponse resp = new ErrorResponse("500",
                "《系统异常》请联系管理员处理此问题");
         return new ResponseEntity<>(resp, HttpStatus.OK);
