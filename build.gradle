@@ -1,3 +1,12 @@
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
 buildscript {
 	ext {
 		springBootVersion = '1.5.8.RELEASE'
@@ -10,15 +19,6 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'war'
-
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
-
 repositories {
 	mavenCentral()
 }
@@ -28,6 +28,7 @@ configurations {
 }
 
 dependencies {
+    // SpringBoot核心包
     compile("org.springframework.boot:spring-boot-starter-web")
     // 自动mapper生成工具
     compile files('lib/mybatis-generator-plugin-1.4.jar')
