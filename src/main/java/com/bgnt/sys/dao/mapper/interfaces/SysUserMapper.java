@@ -4,7 +4,9 @@ import com.bgnt.sys.dao.bo.SysUser;
 import com.bgnt.sys.dao.bo.SysUserCriteria;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SysUserMapper {
     int countByExample(SysUserCriteria example);
 

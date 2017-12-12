@@ -7,6 +7,8 @@ import com.bgnt.util.DateUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.UUID;
 
 /**
@@ -20,6 +22,7 @@ public class SysUserSVImpl implements ISysUserSV {
     private final static Logger LOGGER = Logger.getLogger(SysUserSVImpl.class);
     @Autowired
     private SysUserMapper sysUserMapper;
+    @Transactional
     @Override
     public void insert(SysUser sysUser) {
         LOGGER.info("===进入service===");
