@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/bg-nt?characterEncoding=utf8&useSSL=true
+    username: root
+    password: 123456
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: com.bgnt
+mybatis:
+  typeAliasesPackage: com.bgnt.*.*.dao.vo
+  mapperLocations: classpath:mybatis/*/*.xml
+  typeHandlersPackage: com.bgnt.*.*.dao.mapper.interfaces
