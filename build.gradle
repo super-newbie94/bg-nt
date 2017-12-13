@@ -30,6 +30,8 @@ configurations {
 dependencies {
     // SpringBoot核心包
     compile("org.springframework.boot:spring-boot-starter-web")
+    // redis
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
     // 自动mapper生成工具
     compile files('lib/mybatis-generator-plugin-1.4.jar')
     compile('org.mybatis.generator:mybatis-generator-core:1.3.2')

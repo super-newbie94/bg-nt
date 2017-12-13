@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  * User: GaoYuan
  * Date: 17/11/21
  * Time: 11:15
+ * 基础对象类
  */
 public class BaseBo implements Serializable {
     private static final long serialVersionUID = 1048732770455109215L;

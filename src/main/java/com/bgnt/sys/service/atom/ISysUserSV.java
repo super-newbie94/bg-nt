@@ -9,4 +9,6 @@ import com.bgnt.sys.dao.bo.SysUser;
  */
 public interface ISysUserSV {
     void insert(SysUser sysUser);
+
+    SysUser findSysUserById(String id);
 }

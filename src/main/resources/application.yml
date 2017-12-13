@@ -1,13 +1,31 @@
 spring:
+# 数据源
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/bg-nt?characterEncoding=utf8&useSSL=true
     username: root
     password: 123456
+# 热启动
   devtools:
     restart:
       enabled: true
       additional-paths: com.bgnt
+# redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+# 连接超时时间（毫秒）
+    timeout: 0
+    pool:
+# 最大连接数量
+      max-active: 8
+# 阻塞等待时间
+      max-wait: 30
+# 连接池中的最小空闲连接
+      max-idle: 8
+# mybatis
 mybatis:
   typeAliasesPackage: com.bgnt.*.*.dao.vo
   mapperLocations: classpath:mybatis/*/*.xml

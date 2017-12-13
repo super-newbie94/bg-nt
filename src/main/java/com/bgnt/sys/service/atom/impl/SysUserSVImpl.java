@@ -33,4 +33,9 @@ public class SysUserSVImpl implements ISysUserSV {
         sysUser.setUpdatedTime(DateUtil.now());
         sysUserMapper.insert(sysUser);
     }
+
+    @Override
+    public SysUser findSysUserById(String id) {
+        return sysUserMapper.selectByPrimaryKey(id);
+    }
 }

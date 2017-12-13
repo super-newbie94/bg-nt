@@ -1,7 +1,8 @@
 # 纯后台项目
-### 技术站
+### 技术栈
 - SpringBoot  
 - MyBatis（自动生成）
+- redis
 - 异常处理 
 
 
