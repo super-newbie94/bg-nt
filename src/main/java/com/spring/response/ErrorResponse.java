@@ -1,4 +1,4 @@
-package com.bgnt.spring.response;
+package com.spring.response;
 
 
 /**

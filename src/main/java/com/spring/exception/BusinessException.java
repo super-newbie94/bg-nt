@@ -1,4 +1,4 @@
-package com.bgnt.spring.exception;
+package com.spring.exception;
 
 /**
  * User: GaoYuan

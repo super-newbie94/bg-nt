@@ -1,6 +1,6 @@
-package com.bgnt.spring.support;
+package com.spring.support;
 
-import com.bgnt.BgNtApplication;
+import com.BgNtApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 

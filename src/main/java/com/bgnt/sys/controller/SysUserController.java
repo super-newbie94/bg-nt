@@ -2,8 +2,8 @@ package com.bgnt.sys.controller;
 
 import com.bgnt.api.request.SaveSysUserRequest;
 import com.bgnt.em.BaseResultCode;
-import com.bgnt.spring.exception.BusinessException;
-import com.bgnt.spring.response.BaseResponse;
+import com.spring.exception.BusinessException;
+import com.spring.response.BaseResponse;
 import com.bgnt.sys.dao.bo.SysUser;
 import com.bgnt.sys.service.atom.ISysUserSV;
 import org.apache.log4j.Logger;

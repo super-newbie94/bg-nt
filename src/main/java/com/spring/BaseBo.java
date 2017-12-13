@@ -1,4 +1,4 @@
-package com.bgnt.spring;
+package com.spring;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

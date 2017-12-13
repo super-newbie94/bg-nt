@@ -1,6 +1,6 @@
-package com.bgnt.spring.exception;
+package com.spring.exception;
 
-import com.bgnt.spring.response.ErrorResponse;
+import com.spring.response.ErrorResponse;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
