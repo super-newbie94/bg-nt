@@ -8,8 +8,8 @@ package com.bgnt.em;
 public enum BaseResultCode {
 
     OK("000000","成功"),
-    PARAMETER_ERROR("100001", "参数传递异常")
-
+    PARAMETER_ERROR("100001", "参数传递异常"),
+    LOGIN_ERROR("00001", "登录信息异常")
 
 
 

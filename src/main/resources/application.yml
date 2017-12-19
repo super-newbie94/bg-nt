@@ -30,3 +30,4 @@ mybatis:
   typeAliasesPackage: com.bgnt.*.*.dao.vo
   mapperLocations: classpath:mybatis/*/*.xml
   typeHandlersPackage: com.bgnt.*.*.dao.mapper.interfaces
+
