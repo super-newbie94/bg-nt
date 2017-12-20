@@ -5,11 +5,6 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/bg-nt?characterEncoding=utf8&useSSL=true
     username: root
     password: 123456
-# 热启动
-  devtools:
-    restart:
-      enabled: true
-      additional-paths: com.bgnt
 # redis
   redis:
     database: 0

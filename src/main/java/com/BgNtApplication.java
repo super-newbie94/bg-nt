@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.bgnt"})
 @EnableTransactionManagement
 @MapperScan("com.bgnt")
 public class BgNtApplication {

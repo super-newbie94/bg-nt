@@ -1,5 +1,9 @@
 package com.spring.service.impl;
 
+import com.bgnt.em.BaseResultCode;
+import com.google.gson.Gson;
+import com.oracle.javafx.jmx.json.JSONException;
+import com.spring.response.BaseResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -44,8 +48,11 @@ public class TokenAuthenticationService {
         try {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getOutputStream().println("异常信息");
+            Gson gson = new Gson();
+            response.getOutputStream().println(gson.toJson(new BaseResponse(BaseResultCode.OK.getValue(), JWT)));
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,7 @@
 package com.spring.configuration;
 
+import com.spring.filter.JWTAuthenticationFilter;
+import com.spring.filter.JWTLoginFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 对请求进行认证
                 .authorizeRequests()
                 // 所有 / 的所有请求 都放行
-                .antMatchers("/").permitAll()
+//                .antMatchers("/").permitAll()
                 // 所有 /login 的POST请求 都放行
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 // 权限检查

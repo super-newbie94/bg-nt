@@ -1,7 +1,8 @@
-package com.spring.configuration;
+package com.spring.filter;
 
 import com.bgnt.sys.dao.bo.SysUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oracle.javafx.jmx.json.JSONException;
 import com.spring.service.impl.TokenAuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +55,10 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getOutputStream().println("error");
+        try {
+            response.getOutputStream().println("error");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.spring.configuration;
+package com.spring.filter;
 
 import com.spring.service.impl.TokenAuthenticationService;
 import org.springframework.security.core.Authentication;
