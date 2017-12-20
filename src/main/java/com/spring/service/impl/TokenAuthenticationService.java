@@ -2,11 +2,12 @@ package com.spring.service.impl;
 
 import com.bgnt.em.BaseResultCode;
 import com.google.gson.Gson;
-import com.oracle.javafx.jmx.json.JSONException;
 import com.spring.response.BaseResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,13 +25,13 @@ import java.util.List;
  * Time: 13:57
  */
 public class TokenAuthenticationService {
-    public static final long EXPIRATIONTIME = 432_000_000;     // 5天
+    public static final long EXPIRATIONTIME = 7_200_000;     // 2小时
     public static final String SECRET = "P@ssw02d";            // JWT密码
     public static final String TOKEN_PREFIX = "Bearer";        // Token前缀
     public static final String HEADER_STRING = "Authorization";// 存放Token的Header Key
 
     // JWT生成方法
-    public static void addAuthentication(HttpServletResponse response, String username) {
+    public static String addAuthentication(String username) {
 
         // 生成JWT
         String JWT = Jwts.builder()
@@ -43,22 +44,21 @@ public class TokenAuthenticationService {
                 // 签名设置
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
-
+        return JWT;
         // 将 JWT 写入 body
-        try {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            Gson gson = new Gson();
-            response.getOutputStream().println(gson.toJson(new BaseResponse(BaseResultCode.OK.getValue(), JWT)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            response.setContentType("application/json");
+//            response.setStatus(HttpServletResponse.SC_OK);
+//            Gson gson = new Gson();
+//
+//            response.getOutputStream().println(gson.toJson(new BaseResponse(BaseResultCode.OK.getValue(), JWT)));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    // JWT验证方法
-    public static Authentication getAuthentication(HttpServletRequest request) {
+    // JWT验证方法，去redis中验证是否存在此token
+    public static Authentication getAuthentication(HttpServletRequest request, StringRedisTemplate stringRedisTemplate) {
         // 从Header中拿到token
         String token = request.getHeader(HEADER_STRING);
 
@@ -73,14 +73,19 @@ public class TokenAuthenticationService {
 
             // 拿用户名
             String user = claims.getSubject();
+            // 去redis中找到对应的用户信息进行比较
+            String tokenRedis = stringRedisTemplate.opsForValue().get(user);
+            if (null != tokenRedis && (TOKEN_PREFIX + " " + tokenRedis).equals(token)) {
+                // 得到 权限（角色）
+                List<GrantedAuthority> authorities =  AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
+                // 返回验证令牌
+                return user != null ?
+                        new UsernamePasswordAuthenticationToken(user, null, authorities) :
+                        null;
+            } else {
+                return null;
+            }
 
-            // 得到 权限（角色）
-            List<GrantedAuthority> authorities =  AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
-
-            // 返回验证令牌
-            return user != null ?
-                    new UsernamePasswordAuthenticationToken(user, null, authorities) :
-                    null;
         }
         return null;
     }

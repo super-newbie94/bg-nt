@@ -7,6 +7,7 @@ import com.bgnt.sys.service.atom.ISysUserSV;
 import com.bgnt.util.DateUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,8 @@ import java.util.UUID;
  * Date: 17/11/14
  * Time: 18:00
  */
-@Service(value = "sysUserSV")
+@Primary
+@Service
 public class SysUserSVImpl implements ISysUserSV {
 
     private final static Logger LOGGER = Logger.getLogger(SysUserSVImpl.class);

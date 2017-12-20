@@ -3,9 +3,14 @@ package com.bgnt.sys.dao.bo;
 import com.spring.BaseBo;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 
-public class SysUser extends BaseBo {
+public class SysUser extends BaseBo implements UserDetails {
     private String id;
     @NotBlank(message = "用户名不能为空")
     private String username;
@@ -22,6 +27,11 @@ public class SysUser extends BaseBo {
     private String addressCity;
     @NotBlank(message = "省市不能为空")
     private String addressTown;
+    /**
+     * 权限
+     */
+    private ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+
 
     public String getId() {
         return id;
@@ -87,5 +97,35 @@ public class SysUser extends BaseBo {
         this.addressTown = addressTown == null ? null : addressTown.trim();
     }
 
+    /**
+     * 重定义
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
 
+    public void setAuthorities(ArrayList<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

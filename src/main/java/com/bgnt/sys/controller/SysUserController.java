@@ -31,7 +31,7 @@ public class SysUserController {
 
 
     @Autowired
-    private ISysUserSV sysUserSV;
+    private ISysUserSV iSysUserSV;
 
     private final static Logger LOGGER = Logger.getLogger(SysUserController.class);
 
@@ -46,7 +46,7 @@ public class SysUserController {
             stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
             throw new BusinessException(BaseResultCode.PARAMETER_ERROR.getValue(), stringBuffer.toString());
         }
-        sysUserSV.insert(sysUser.getSysUser());
+        iSysUserSV.insert(sysUser.getSysUser());
         return new BaseResponse();
     }
 
@@ -69,7 +69,7 @@ public class SysUserController {
     @Cacheable(value = "searchUser")
     @GetMapping(value = "/api/v0.0.1/searchUser/{id}")
     public SysUser searchUser(@PathVariable String id) {
-        SysUser sysUser = sysUserSV.findSysUserById(id);
+        SysUser sysUser = iSysUserSV.findSysUserById(id);
         return sysUser;
     }
 }

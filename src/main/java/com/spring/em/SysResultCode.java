@@ -1,24 +1,17 @@
-package com.bgnt.em;
+package com.spring.em;
 
 /**
  * User: GaoYuan
- * Date: 17/11/21
- * Time: 10:55
+ * Date: 17/12/20
+ * Time: 16:56
  */
-public enum BaseResultCode {
-
-    OK("000000","成功"),
-    PARAMETER_ERROR("100001", "参数传递异常")
-
-
-
-    ;
+public enum SysResultCode {
+    LOGIN_ERROR("500001", "Username or password is incorrect");
 
     private String value;
     private String detail;
 
-
-    BaseResultCode(String value, String detail) {
+    SysResultCode(String value, String detail) {
         this.value = value;
         this.detail = detail;
     }
