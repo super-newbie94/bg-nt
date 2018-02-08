@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BinaryOperator;
 
 /**
  * User: GaoYuan
@@ -16,10 +17,9 @@ import java.util.Map;
 @RestController
 public class HomeController {
     private final Logger LOGGER = Logger.getLogger(HomeController.class);
-
     @GetMapping(value = "/api/index")
     public Object index() {
-        LOGGER.info("＊＊＊＊访问主页＊＊＊＊");
+        LOGGER.info("****访问主页****");
         Map<String ,String > map = new HashMap<>();
         map.put("1", "123");
         map.put("2", "123");
