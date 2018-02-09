@@ -1,0 +1,1 @@
+INSERT INTO `bg-nt`.`sys_user`(`id`, `username`, `password`, `phone`, `email`, `address_province`, `address_city`, `address_town`, `created`, `updated_time`, `created_time`, `updated`) VALUES ('11', 'admin', '123456', '12345678910', 'gaoyuan_online@sina.com', '1', '2', '3', NULL, NULL, NULL, NULL);

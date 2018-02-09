@@ -61,31 +61,35 @@ public class TokenAuthenticationService {
     public static Authentication getAuthentication(HttpServletRequest request, StringRedisTemplate stringRedisTemplate) {
         // 从Header中拿到token
         String token = request.getHeader(HEADER_STRING);
+        try {
+            if (token != null) {
+                // 解析 Token
+                Claims claims = Jwts.parser()
+                        // 验签
+                        .setSigningKey(SECRET)
+                        // 去掉 Bearer
+                        .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                        .getBody();
 
-        if (token != null) {
-            // 解析 Token
-            Claims claims = Jwts.parser()
-                    // 验签
-                    .setSigningKey(SECRET)
-                    // 去掉 Bearer
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody();
+                // 拿用户名
+                String user = claims.getSubject();
+                // 去redis中找到对应的用户信息进行比较
+                String tokenRedis = stringRedisTemplate.opsForValue().get(user);
+                if (null != tokenRedis && (TOKEN_PREFIX + " " + tokenRedis).equals(token)) {
+                    // 得到 权限（角色）
+                    List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
+                    // 返回验证令牌
+                    return user != null ?
+                            new UsernamePasswordAuthenticationToken(user, null, authorities) :
+                            null;
+                } else {
+                    return null;
+                }
 
-            // 拿用户名
-            String user = claims.getSubject();
-            // 去redis中找到对应的用户信息进行比较
-            String tokenRedis = stringRedisTemplate.opsForValue().get(user);
-            if (null != tokenRedis && (TOKEN_PREFIX + " " + tokenRedis).equals(token)) {
-                // 得到 权限（角色）
-                List<GrantedAuthority> authorities =  AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
-                // 返回验证令牌
-                return user != null ?
-                        new UsernamePasswordAuthenticationToken(user, null, authorities) :
-                        null;
-            } else {
-                return null;
             }
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
         return null;
     }

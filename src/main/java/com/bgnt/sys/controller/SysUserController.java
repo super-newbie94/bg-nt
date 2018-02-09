@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * User: GaoYuan
@@ -39,12 +40,8 @@ public class SysUserController {
     public BaseResponse saveUser(@Validated @RequestBody SaveSysUserRequest sysUser, BindingResult result) {
         List<ObjectError> list = result.getAllErrors();
         if (!CollectionUtils.isEmpty(list)) {
-            StringBuffer stringBuffer = new StringBuffer();
-            list.forEach(item ->
-                    stringBuffer.append(item.getDefaultMessage()).append(",")
-            );
-            stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
-            throw new BusinessException(BaseResultCode.PARAMETER_ERROR.getValue(), stringBuffer.toString());
+            String collect = list.stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(","));
+            throw new BusinessException(BaseResultCode.PARAMETER_ERROR.getValue(), collect);
         }
         iSysUserSV.insert(sysUser.getSysUser());
         return new BaseResponse();
